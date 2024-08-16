@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صلاتك</title>
+    <link rel="stylesheet" type="text/css" href="https://www.fontstatic.com/f=thuluth-decorated">
+    <link rel="stylesheet" type="text/css" href="https://www.fontstatic.com/f=cairo-bold">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <style>
+    *{
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: 'cairo-bold';
+        outline: none;
+    }
+    ::-webkit-scrollbar{
+        width: 0;
+    }
+    
+    body{
+        direction: rtl;
+        scroll-behavior: smooth;
+    }
+    .cont{
+        max-width: 1450px;
+        width: 100%;
+        margin: 0 auto;
+        position: relative;
+        padding: 0 20px;
+    }
+    .header{
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1;
+        transition: .5s all ease-in-out ;
+        background:#a5d3f5;
+    }
+    .header .cont{
+        display:flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 70px;
+        color: #fff;
+        transform: .5s all ease-in-out; 
+    }
+    .header.active{
+        background-color: rgba(0, 0, 0, .6);
+    }
+    .header .active .cont{
+        height: 80px;
+    }
+    .header ul{
+        display: flex;
+        list-style-type:none;
+        margin-left: 20px;
+        margin-top: 5px;
+    }
+    .header ul li{
+        position: relative;
+        cursor:pointer;
+    }
+    .header ul li::after{
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        background-color: #fff;
+        height: 2px;
+        transition: .3s all ease-in-out;
+        width: 0;
+    }
+    .header li .active::after,
+    .header li:hover::after
+    {
+        width: 100%;
+    }
+    .header .bars{
+        display:none;
+    }
+    .header li:not(:first-of-type),
+    .header li:not(:last-of-type){
+        margin: 0 15px;
+    }
+    .header .logo a{
+        font-family: 'thuluth-decorated';
+        font-size: 60px;
+        cursor: pointer;
+        text-decoration: none;
+        color: #fff;
+    }
+    a{
+        text-decoration: none;
+        color: #fff;
+    }
+    .fa-solid.fa-mosque{
+        font-size: 30px;
+        color: #fff;
+    }
+    .fa-solid.fa-book-quran{
+        font-size: 30px;
+        color: #fff;
+    }
+    .fa-solid.fa-book-open{
+        font-size: 30px;
+        color:#fff;
+    }
+    .fa-solid.fa-person-praying{
+        font-size: 35px;
+    }
+    .fa-solid.fa-mosque:hover{
+        color: #0d1d47;
+    }
+    .fa-solid.fa-book-quran:hover{
+        color: #0d1d47;
+    }
+    .fa-solid.fa-book-open:hover{
+        color:#0d1d47;
+    }
+    .fa-solid.fa-book-open:hover{
+        color: #0d1d47;
+    }
+
+    .quran .cont{
+        margin-top: 100px; ;
+    }
+    .s-cont{
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .s-cont .surah{
+        min-height:100px;
+        min-width: 150px;
+        box-shadow: 0 0 5px #0d1d47;
+        margin: 7px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        transition: .5s ease-in-out;
+        color: #0c2140;
+        font-size: 17px;
+    }
+    .s-cont .surah:hover{
+        transform:scale(1.2);
+    }
+    .surahpopup{
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 2;
+        background-color: #fff;
+        overflow-y: scroll;
+        transform: translateX(100%);
+    }
+    .surahpopup.active{
+        transform: translateX(0);
+        transition: .7 transform ease-in-out;
+    }
+    .surahpopup::-webkit-scrollbar{
+        width: 10px;
+        background-color: #fff;
+    }
+    .surahpopup::-webkit-scrollbar-thumb{
+        background-color: #a5d3f5;
+    }
+    .close{
+        position: sticky;
+        top:5px;
+        right: 5px;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px; 
+        color: #123365;
+        cursor: pointer;
+    }
+    .surahpopup .ayat-quran{
+        padding: 15px;
+        width: calc(100%-40px);
+        margin-top: 20px;
+        margin-right: 40px;
+        color: #000;
+        text-align: center;
+    }
+    .surahpopup .ayat-quran p{
+        line-height: 2;
+        width: 100%;
+        border-bottom: 2px solid #72b8e4;
+        margin-bottom: 10px;
+    }
+
+
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="cont">
+            <div class="logo"><a href="index.html"> صلاتك <i class="fa-solid fa-person-praying"></i></a></div>
+            <ul>
+                <li  class="active"><a href="index.html"><i class="fa-solid fa-mosque"></i></a></li>
+                <li  class="active"><a href="index2.html"><i class="fa-solid fa-book-quran"></i></a></li>
+                <li  class="active"><a href="index3.html"><i class="fa-solid fa-book-open"></i></a></li>
+            </ul>
+            <div class="bars">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+    <section class="quran">
+        <div class="cont">
+            <div class="s-cont">
+                <div class="surah">
+                    <p> سورة الفاتحة</p>
+                    <p>al-faatiha</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="surahpopup">
+        <div class="close">
+            <i class="fa-solid fa-circle-xmark"></i>
+        </div>
+        <div class="ayat-quran">
+
+        </div>
+    </div>
+    <script src="js.js"></script>
+</body>
+</html>
